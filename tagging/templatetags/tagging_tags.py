@@ -14,7 +14,7 @@ class TagsForModelNode(Node):
         self.counts = counts
 
     def render(self, context):
-        model = get_model(*self.model.split('.'))
+        model = get_model('blog', *self.model.split('.'))
         if model is None:
             raise TemplateSyntaxError(_('tags_for_model tag was given an invalid model: %s') % self.model)
         context[self.context_var] = Tag.objects.usage_for_model(model, counts=self.counts)
@@ -27,7 +27,7 @@ class TagCloudForModelNode(Node):
         self.kwargs = kwargs
 
     def render(self, context):
-        model = get_model(*self.model.split('.'))
+        model = get_model('blog', *self.model.split('.'))
         if model is None:
             raise TemplateSyntaxError(_('tag_cloud_for_model tag was given an invalid model: %s') % self.model)
         context[self.context_var] = \
@@ -51,7 +51,7 @@ class TaggedObjectsNode(Node):
         self.model = model
 
     def render(self, context):
-        model = get_model(*self.model.split('.'))
+        model = get_model('blog', *self.model.split('.'))
         if model is None:
             raise TemplateSyntaxError(_('tagged_objects tag was given an invalid model: %s') % self.model)
         context[self.context_var] = \
